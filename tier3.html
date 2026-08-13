@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique Akanzu - Tier 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+            background: #f8f8f8;
+            line-height: 1.5;
+        }
+
+        /* Header non sticky, très simple */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #ccc;
+            padding: 10px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #111;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Hero petit et sans CTA */
+        .hero {
+            height: 250px;
+            background: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&w=1200&q=50') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 1.8rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section produits avec grille serrée */
+        .products {
+            padding: 30px 5%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+        }
+
+        .product-card {
+            border: 1px solid #ccc;
+            background: #fff;
+            text-align: center;
+            padding: 8px;
+            border-radius: 0;
+            box-shadow: none;
+            transition: none;
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            background: #f0f0f0;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .product-category {
+            font-size: 10px;
+            color: #777;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .product-title {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 8px;
+            background: #333;
+            color: #fff;
+            border: none;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .add-to-cart-btn:hover {
+            background: #555;
+        }
+
+        /* Footer minimal */
+        footer {
+            background: #fff;
+            text-align: center;
+            padding: 15px 5%;
+            font-size: 12px;
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            nav ul { flex-wrap: wrap; }
+            .hero { height: 180px; }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Akanzu.</div>
+        <nav>
+            <ul>
+                <li><a href="#">Nouveautés</a></li>
+                <li><a href="#">Vêtements</a></li>
+                <li><a href="#">Épicerie Fine</a></li>
+                <li><a href="#">Accessoires</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Nouvelle Collection</h1>
+            <p>L'élégance au quotidien</p>
+        </div>
+    </section>
+
+    <section class="products">
+        <div class="container">
+            <h2 class="section-title">Nos Produits</h2>
+
+            <div class="product-grid">
+                <!-- Produit 1 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1576092768241-dec231879fc3?auto=format&fit=crop&w=600&q=50" alt="Thé" class="product-image">
+                    <div class="product-category">Épicerie Fine</div>
+                    <h3 class="product-title">Thé Vert Premium du Rwanda</h3>
+                    <div class="product-price">18,50 €</div>
+                    <button class="add-to-cart-btn">Ajouter au panier</button>
+                </div>
+
+                <!-- Produit 2 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=600&q=50" alt="Robe" class="product-image">
+                    <div class="product-category">Vêtements</div>
+                    <h3 class="product-title">Robe Élégance Minimaliste</h3>
+                    <div class="product-price">89,00 €</div>
+                    <button class="add-to-cart-btn">Ajouter au panier</button>
+                </div>
+
+                <!-- Produit 3 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=600&q=50" alt="Chaussures" class="product-image">
+                    <div class="product-category">Chaussures</div>
+                    <h3 class="product-title">Sneakers Minimalistes</h3>
+                    <div class="product-price">120,00 €</div>
+                    <button class="add-to-cart-btn">Ajouter au panier</button>
+                </div>
+
+                <!-- Produit 4 -->
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1559525839-b184a4d698c7?auto=format&fit=crop&w=600&q=50" alt="Café" class="product-image">
+                    <div class="product-category">Épicerie Fine</div>
+                    <h3 class="product-title">Grains de Café Arabica</h3>
+                    <div class="product-price">22,00 €</div>
+                    <button class="add-to-cart-btn">Ajouter au panier</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        © 2025 Akanzu
+    </footer>
+
+</body>
+</html>

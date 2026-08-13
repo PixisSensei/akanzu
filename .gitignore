@@ -1,0 +1,31 @@
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Env
+.env
+
+# Build
+dist/
+build/
+
+# Others
+coverage/
+npm-debug.log*
+.env.local
