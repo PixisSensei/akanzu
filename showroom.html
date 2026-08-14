@@ -289,6 +289,38 @@
             color: #fff;
         }
 
+        /* Bouton vers la présentation */
+        .presentation-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        .presentation-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-weight: 600;
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: none;
+        }
+        .presentation-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,113,227,0.25);
+        }
+        .presentation-btn .icon {
+            width: 1.2em;
+            height: 1.2em;
+        }
+
         /* Footer */
         footer {
             background: #fff;
@@ -509,6 +541,10 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
+            .presentation-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
         }
     </style>
 </head>
@@ -580,6 +616,13 @@
                     <button class="view-btn">Voir la démo</button>
                 </div>
             </div>
+        </div>
+
+        <!-- Bouton vers la présentation -->
+        <div class="presentation-cta">
+            <a href="presentation.html" class="presentation-btn">
+                <i data-lucide="file-text" class="icon"></i> Voir la présentation complète
+            </a>
         </div>
     </section>
 

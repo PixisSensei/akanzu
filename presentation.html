@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WavyDream — Akanzu UI Overhaul</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.css">
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --surface: #ffffff;
+            --text: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --border: rgba(0,0,0,0.1);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+            --shadow-lg: 0 16px 40px rgba(0,0,0,0.12);
+            --radius: 14px;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .reveal {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            font-size: 24px; /* base font size slightly reduced */
+            background: var(--bg);
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        /* Center content in each slide */
+        .reveal .slides section {
+            padding: 0 3%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .reveal ul,
+        .reveal ol,
+        .reveal p,
+        .reveal .card p,
+        .reveal table {
+            text-align: left;
+        }
+
+        .reveal ul,
+        .reveal ol {
+            margin: 0 auto;
+            max-width: 800px;
+            padding-left: 1.2em;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .reveal h1,
+        .reveal h2,
+        .reveal h3,
+        .reveal h4 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text);
+        }
+
+        .reveal h1 {
+            font-size: 2.8em;
+            margin-bottom: 0.3em;
+        }
+
+        .reveal h2 {
+            font-size: 1.9em;
+            margin-bottom: 0.5em;
+        }
+
+        .reveal h3 {
+            font-size: 1.3em;
+            margin-bottom: 0.3em;
+        }
+
+        .reveal p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 0.8em;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .reveal a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .accent-text {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 1.2em;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            cursor: default;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1em;
+            margin-top: 0.8em;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1em;
+            width: 100%;
+            max-width: 750px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .tier-badge {
+            display: inline-block;
+            padding: 0.25em 0.7em;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.65em;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.4em;
+        }
+
+        .tier-basic {
+            background: #e8f0fe;
+            color: #1a73e8;
+        }
+
+        .tier-mid {
+            background: #e6f4ea;
+            color: #1e8e3e;
+        }
+
+        .tier-premium {
+            background: #fef7e0;
+            color: #f9ab00;
+        }
+
+        .price {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .recommended {
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .recommended::before {
+            content: "RECOMMANDÉ";
+            position: absolute;
+            top: -0.8em;
+            right: 0.8em;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.2em 0.6em;
+            border-radius: 30px;
+            font-size: 0.55em;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        .comparison-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0.8em auto 0;
+            border-collapse: collapse;
+            font-size: 0.65em;
+            background: var(--surface);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 0.5em 0.6em;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: #f5f5f7;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .comparison-table td:not(:first-child) {
+            text-align: center;
+        }
+
+        .check {
+            color: #34a853;
+            font-weight: 700;
+        }
+
+        .cross {
+            color: #ea4335;
+            font-weight: 700;
+        }
+
+        .lucide {
+            width: 1.1em;
+            height: 1.1em;
+            vertical-align: middle;
+            margin-right: 0.2em;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            padding: 0.5em 1.2em;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.75em;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(0,113,227,0.25);
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-btn:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,113,227,0.35);
+        }
+
+        .reveal .progress {
+            background: rgba(0,113,227,0.2);
+            height: 4px;
+        }
+
+        .reveal .progress span {
+            background: var(--accent);
+        }
+
+        .reveal .controls {
+            color: var(--accent);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .reveal {
+                font-size: 18px;
+            }
+
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 0.8em;
+            }
+
+            .card {
+                max-width: 100%;
+            }
+
+            .reveal h1 {
+                font-size: 2em;
+            }
+
+            .comparison-table {
+                font-size: 0.55em;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.4em;
+            }
+
+            .reveal .slides section {
+                padding: 0 2%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1 : Title -->
+            <section data-background-color="#f5f5f7">
+                <div style="text-align: center;">
+                    <h1 style="background: linear-gradient(to right, #1d1d1f, #0071e3); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Akanzu UI Overhaul</h1>
+                    <p style="font-size: 1.3em; color: var(--text-secondary);">Moderniser la vitrine, préserver le moteur.</p>
+                    <p style="font-size: 0.9em; color: #6e6e73;">WavyDream</p>
+                </div>
+            </section>
+
+            <!-- Slide 2 : Contexte -->
+            <section data-background-color="#f5f5f7">
+                <h2>Contexte</h2>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 style="color: #34a853; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="check-circle" class="lucide"></i> Ce qui fonctionne
+                        </h3>
+                        <ul>
+                            <li>Moteur de vente opérationnel</li>
+                            <li>Produits bien en rayon</li>
+                            <li>Structure solide</li>
+                        </ul>
+                    </div>
+                    <div class="card">
+                        <h3 style="color: #ea4335; display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="alert-triangle" class="lucide"></i> Ce qui freine
+                        </h3>
+                        <ul>
+                            <li>Vitrine ne reflète pas la qualité</li>
+                            <li>Manque de confiance visuelle</li>
+                            <li>Design actuel peut faire fuir</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 1.5em; font-style: italic;">« On ne détruit rien, on embellit. »</p>
+            </section>
+
+            <!-- Slide 3 : Analogie -->
+            <section data-background-color="#f5f5f7">
+                <h2>Notre approche</h2>
+                <div class="card" style="max-width: 90%; margin: 0 auto;">
+                    <p style="font-size: 1.1em; line-height: 1.5;">
+                        <span class="accent-text">Imaginez votre site comme un magasin physique.</span><br>
+                        Les murs sont solides, la caisse fonctionne, les produits sont en rayon.
+                        Mais la peinture est défraîchie et la vitrine ne donne pas envie d'entrer.
+                    </p>
+                    <p style="margin-top: 0.8em;">
+                        <span class="accent-text">Notre travail :</span> refaire la décoration, la lumière et la devanture.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 4 : Trois options -->
+            <section data-background-color="#f5f5f7">
+                <h2>Trois niveaux de service</h2>
+                <p>Choisissez l'image que vous voulez donner à Akanzu.</p>
+                <div class="grid-3">
+                    <div class="card">
+                        <span class="tier-badge tier-basic">Option 1</span>
+                        <h3>Coup de Propre</h3>
+                        <div class="price">150 €</div>
+                        <p>Vitrine moderne et adaptée mobile.</p>
+                    </div>
+                    <div class="card recommended">
+                        <span class="tier-badge tier-mid">Option 2</span>
+                        <h3>Boutique Sur-Mesure</h3>
+                        <div class="price">250 €</div>
+                        <p>Couleurs, typographie, identité forte.</p>
+                    </div>
+                    <div class="card">
+                        <span class="tier-badge tier-premium">Option 3</span>
+                        <h3>Expérience Luxe</h3>
+                        <div class="price">400 €</div>
+                        <p>Animations, panier coulissant, finitions haut de gamme.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 5 : Option 1 détails -->
+            <section data-background-color="#f5f5f7">
+                <h2>Option 1 — Coup de Propre <span class="accent-text">150 €</span></h2>
+                <div class="grid-2">
+                    <div>
+                        <ul>
+                            <li>Design moderne et épuré</li>
+                            <li>Responsive mobile</li>
+                            <li>Navigation harmonisée</li>
+                            <li>Livraison 7 jours</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="shopping-bag" style="width: 2em; height: 2em; color: var(--accent);"></i>
+                        <p style="margin-left: 0.5em;">Simple et efficace.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 6 : Option 2 détails -->
+            <section data-background-color="#f5f5f7">
+                <h2>Option 2 — Boutique Sur-Mesure <span class="accent-text">250 €</span></h2>
+                <div class="grid-2">
+                    <div>
+                        <ul>
+                            <li>Personnalisation des couleurs</li>
+                            <li>Typographie premium</li>
+                            <li>Mise en page soignée</li>
+                            <li>Intégration produits stylée</li>
+                            <li>Livraison 10 jours</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="palette" style="width: 2em; height: 2em; color: var(--accent);"></i>
+                        <p style="margin-left: 0.5em;">Équilibre parfait.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7 : Option 3 détails -->
+            <section data-background-color="#f5f5f7">
+                <h2>Option 3 — Expérience Luxe <span class="accent-text">400 €</span></h2>
+                <div class="grid-2">
+                    <div>
+                        <ul>
+                            <li>Animations fluides</li>
+                            <li>Panier coulissant</li>
+                            <li>Préloader élégant</li>
+                            <li>Curseur personnalisé</li>
+                            <li>Livraison 14 jours</li>
+                        </ul>
+                    </div>
+                    <div class="card" style="display: flex; align-items: center; justify-content: center;">
+                        <i data-lucide="sparkles" style="width: 2em; height: 2em; color: #f9ab00;"></i>
+                        <p style="margin-left: 0.5em;">Expérience des grandes marques.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 8 : Comparaison -->
+            <section data-background-color="#f5f5f7">
+                <h2>Comparaison</h2>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Fonctionnalité</th>
+                            <th>Option 1</th>
+                            <th>Option 2</th>
+                            <th>Option 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Design moderne et responsive</td><td class="check"><i data-lucide="check"></i></td><td class="check"><i data-lucide="check"></i></td><td class="check"><i data-lucide="check"></i></td></tr>
+                        <tr><td>Personnalisation couleurs / logo</td><td class="cross"><i data-lucide="x"></i></td><td class="check"><i data-lucide="check"></i></td><td class="check"><i data-lucide="check"></i></td></tr>
+                        <tr><td>Typographie premium</td><td class="cross"><i data-lucide="x"></i></td><td class="check"><i data-lucide="check"></i></td><td class="check"><i data-lucide="check"></i></td></tr>
+                        <tr><td>Animations fluides</td><td class="cross"><i data-lucide="x"></i></td><td class="cross"><i data-lucide="x"></i></td><td class="check"><i data-lucide="check"></i></td></tr>
+                        <tr><td>Panier coulissant</td><td class="cross"><i data-lucide="x"></i></td><td class="cross"><i data-lucide="x"></i></td><td class="check"><i data-lucide="check"></i></td></tr>
+                        <tr><td>Préloader & finitions luxe</td><td class="cross"><i data-lucide="x"></i></td><td class="cross"><i data-lucide="x"></i></td><td class="check"><i data-lucide="check"></i></td></tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; margin-top: 0.8em; font-weight: 600;">
+                    <i data-lucide="star" style="color: #f9ab00;"></i> Option 2 recommandée
+                </p>
+            </section>
+
+            <!-- Slide 9 : Processus -->
+            <section data-background-color="#f5f5f7">
+                <h2>Processus simple</h2>
+                <div class="grid-3">
+                    <div class="card">
+                        <i data-lucide="handshake" style="width: 2em; height: 2em; color: var(--accent);"></i>
+                        <h3>1. Accord</h3>
+                        <p>Choisissez l'option.</p>
+                    </div>
+                    <div class="card">
+                        <i data-lucide="key" style="width: 2em; height: 2em; color: var(--accent);"></i>
+                        <h3>2. Accès</h3>
+                        <p>Confiez la clé de l'arrière-boutique.</p>
+                    </div>
+                    <div class="card">
+                        <i data-lucide="refresh-cw" style="width: 2em; height: 2em; color: var(--accent);"></i>
+                        <h3>3. Transformation</h3>
+                        <p>Refonte de la décoration sans toucher au moteur.</p>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 1em;">Livraison 7–14 jours selon l'option.</p>
+            </section>
+
+            <!-- Slide 10 : Investissement -->
+            <section data-background-color="#f5f5f7">
+                <h2>Investissement</h2>
+                <div class="card" style="max-width: 80%; margin: 0 auto;">
+                    <p style="font-size: 1.1em;">
+                        Une refonte complète coûterait <span class="accent-text">2 000 € – 5 000 €</span>.<br>
+                        Nos options commencent à <span class="accent-text">150 €</span>.
+                    </p>
+                    <p style="margin-top: 0.8em;">
+                        <strong>Retour sur investissement rapide :</strong> un site qui inspire confiance augmente les ventes.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Slide 11 : Prochaines étapes -->
+            <section data-background-color="#f5f5f7">
+                <h2>Prochaines étapes</h2>
+                <ul style="font-size: 1.1em; line-height: 1.8;">
+                    <li><i data-lucide="check-circle" style="color: var(--accent);"></i> Choisir l'option</li>
+                    <li><i data-lucide="credit-card" style="color: var(--accent);"></i> Verser un acompte de 30 %</li>
+                    <li><i data-lucide="key" style="color: var(--accent);"></i> Fournir l'accès</li>
+                    <li><i data-lucide="package-check" style="color: var(--accent);"></i> Réception sous 7–14 jours</li>
+                </ul>
+                <p style="margin-top: 1em; font-weight: 600; text-align: center;">« On ne détruit rien, on embellit. »</p>
+            </section>
+
+            <!-- Slide 12 : Merci -->
+            <section data-background-color="#f5f5f7">
+                <div style="text-align: center;">
+                    <h2 style="margin-bottom: 0.5em;">Merci de votre confiance</h2>
+                    <p>Prêt à donner à Akanzu la vitrine qu'elle mérite ?</p>
+                    <p style="margin-top: 1em; font-size: 0.8em; color: #6e6e73;">
+                        <i data-lucide="mail" style="vertical-align: middle;"></i> jym.nkana@wavydream.com &nbsp;&nbsp;
+                        <i data-lucide="phone" style="vertical-align: middle;"></i> +352 661 971 977
+                    </p>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js JS -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.3.1/dist/reveal.js"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Initialize Reveal.js
+        Reveal.initialize({
+            hash: true,
+            center: true,
+            // Remove fixed width/height to allow better auto-scaling
+            // width: 1200,
+            // height: 800,
+            margin: 0.05,
+            transition: 'slide',
+            transitionSpeed: 'default',
+            backgroundTransition: 'fade',
+            controls: true,
+            progress: true,
+            slideNumber: false,
+            keyboard: true,
+            overview: true,
+            touch: true,
+            loop: false,
+            rtl: false,
+            shuffle: false,
+            fragments: false,
+            embedded: false,
+            help: true,
+            showNotes: false,
+            autoPlayMedia: null,
+            preloadIframes: true,
+            autoSlide: 0,
+            autoSlideStoppable: true,
+            defaultTiming: 120,
+            mouseWheel: false,
+            hideInactiveCursor: true,
+            hideCursorTime: 5000,
+            hideAddressBar: true,
+            previewLinks: false,
+        });
+    </script>
+</body>
+</html>
